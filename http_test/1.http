@@ -1,0 +1,59 @@
+
+
+@host = 192.168.88.141:90
+@hostdev = 192.168.88.141:90
+@host1 = 5.23.52.53:90
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjIsImV4cCI6MTY3NTY1ODc5MX0.B9WJ61M5JmFVRdZKKJtssijpRUu2r0OppQvIErkva6o
+@token2 = eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjQwMSwiZXhwIjoxNjc0NjAxMTc3fQ.EEk8VwVk51cWkyMcZFNL-JMVN7mlDpNvPNz5K420PlY
+
+###
+GET http://{{host}}/users HTTP/1.1
+
+###
+POST http://{{host}}/users/register HTTP/1.1
+content-type: application/json
+
+{
+    "login": "ab@m.ru",
+    "password": "1111"
+}
+
+###
+POST http://{{host}}/users/login HTTP/1.1
+content-type: application/json
+
+{
+    "login": "f01@m.ru",
+    "password": "f01"
+}
+
+###
+GET http://{{host}}/objects HTTP/1.1
+
+
+###
+GET http://{{hostdev}}/objects HTTP/1.1
+Authorization: Bearer {{token}}
+
+###
+GET http://{{host1}}/objects/0101 HTTP/1.1
+Authorization: Bearer {{token}}
+
+###
+GET http://{{host}}/objects/1001 HTTP/1.1
+Authorization: Bearer {{token2}}
+
+###
+GET http://{{host}}/objects HTTP/1.1
+Authorization: Bearer {{token2}}
+
+###
+
+POST http://{{hostdev}}/objects/0108 HTTP/1.1
+Authorization: Bearer {{token}}
+
+###
+
+POST http://{{hostdev}}/objects/?object_id=1003 HTTP/1.1
+Authorization: Bearer {{token2}}
+
